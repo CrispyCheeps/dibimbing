@@ -3,3 +3,5 @@ const wrapInArray = <T>(arg : T) : T[] => {
 }
 
 console.log(wrapInArray<number>(5))
+
+export {}

@@ -8,3 +8,5 @@ const getFullName = (person : Person ) : string => {
 }
 
 console.log(getFullName({firstName : "John", lastName : "Doe"}))
+
+export {}
