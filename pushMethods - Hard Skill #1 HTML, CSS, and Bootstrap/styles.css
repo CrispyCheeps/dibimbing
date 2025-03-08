@@ -1,0 +1,259 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo-yellow {
+    background-color: #ffc107;
+    color: black;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-right: 2px;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    position: relative;
+}
+
+.main-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+}
+
+.search-icon {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Hero Section Styles */
+.hero-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    position: relative;
+    background-image: url('spider-man-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0.2) 100%);
+}
+
+.movie-info {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+}
+
+.movie-title {
+    font-size: 50px;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+
+.movie-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.pg-rating {
+    background-color: #e50914;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.movie-description {
+    margin-bottom: 30px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.read-more {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+.watch-button {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.watch-button i {
+    font-size: 18px;
+}
+
+/* Carousel Section Styles */
+.carousel-section {
+    height: 150px;
+    padding: 0 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-arrows {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 5;
+}
+
+.arrow-left, .arrow-right {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+}
+
+.carousel-items {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.carousel-items::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 120px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-item.active {
+    transform: scale(1.2);
+    border: 2px solid #ffc107;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    
+    .main-nav ul {
+        gap: 15px;
+    }
+    
+    .movie-title {
+        font-size: 36px;
+    }
+    
+    .hero-section {
+        padding: 0 20px;
+    }
+    
+    .carousel-section {
+        height: 120px;
+    }
+    
+    .carousel-item {
+        width: 100px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-nav {
+        display: none; /* Hide navigation on smaller screens */
+    }
+    
+    .movie-title {
+        font-size: 30px;
+    }
+    
+    .movie-meta {
+        flex-wrap: wrap;
+    }
+    
+    .carousel-item {
+        width: 80px;
+        height: 60px;
+    }
+}

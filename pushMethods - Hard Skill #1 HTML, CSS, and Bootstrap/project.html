@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recom</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #131722;
+        --secondary-color: #1c2033;
+        --accent-color: #f5c518;
+        --text-color: #ffffff;
+      }
+
+      body {
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .navbar {
+        background-color: var(--primary-color);
+        padding: 10px 0;
+      }
+
+      .logo {
+        background-color: var(--accent-color);
+        color: white;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+
+      .nav-link {
+        color: var(--text-color);
+        margin: 0 10px;
+        position: relative;
+      }
+
+      .nav-link.active::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+      }
+
+      .search-icon {
+        color: var(--text-color);
+        font-size: 18px;
+      }
+
+      .hero-section {
+        height: 100vh;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(19, 23, 34, 0.95) 0%,
+          rgba(19, 23, 34, 0.8) 30%,
+          rgba(19, 23, 34, 0.4) 70%,
+          rgba(19, 23, 34, 0.2) 100%
+        );
+      }
+
+      .movie-tag {
+        background-color: var(--accent-color);
+        color: black;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .movie-info {
+        position: relative;
+        z-index: 2;
+      }
+
+      .movie-info h1 {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .movie-meta {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .movie-description {
+        max-width: 600px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .btn-watch {
+        background-color: var(--accent-color);
+        color: black;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .carousel-section {
+        margin-top: 30px;
+        position: relative;
+      }
+
+      .carousel-controls {
+        position: absolute;
+        left: 0;
+        top: -50px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .carousel-control {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .movie-carousel {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+      }
+
+      .movie-carousel::-webkit-scrollbar {
+        display: none;
+      }
+
+      .movie-card {
+        min-width: 180px;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        cursor: pointer;
+      }
+
+      .movie-card:hover {
+        transform: scale(1.05);
+      }
+
+      .movie-card img {
+        width: 100%;
+        height: 270px;
+        object-fit: cover;
+      }
+
+      .featured-movie {
+        border: 3px solid var(--accent-color);
+        transform: scale(1.1);
+        position: relative;
+      }
+
+      .featured-movie::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 3px solid var(--accent-color);
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><span class="logo">MOVIE</span> Recom</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">New Movie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Genre</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Country</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Movie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">TV Series</a>
+            </li>
+          </ul>
+          <div class="search-icon">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-overlay"></div>
+      <div class="container">
+        <div class="movie-info">
+          <h1 id="heroTitle">Spider-Man<br />No Way Home</h1>
+          <div class="movie-meta">
+            <span class="movie-tag" id="heroTag">HD</span>
+            <span id="heroYear">2021</span>
+            <span id="heroDuration">148 minutes</span>
+            <span id="heroRating">8.3</span>
+          </div>
+          <p class="movie-description" id="heroDescription">
+            Spider-man adalah film fiksi filmnya. M ini mampu atiraksi sihir ke
+            kota, tapi di dunia tidak harus melakukan. Upnnhh ada yang terjadi
+            setelah itu iya auah nyaalapaplapla. Waaaaah ini seru bangettttttt
+            lo. Gue nonton.
+          </p>
+          <button class="btn btn-watch">Watch Trailer</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Movie Carousel -->
+    <section class="carousel-section">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="carousel-controls">
+            <div class="carousel-control prev">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="carousel-control next">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="movie-carousel" id="movieCarousel">
+          <!-- Movies will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const apiKey =
+          "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOTE3ZDhhODAwMjYzMzY3OTA5NjZlNGMzN2FkNTBhYSIsIm5iZiI6MTc0MTQwMjIwOC4yNzgsInN1YiI6IjY3Y2JiMDYwOWEzZjcwMTNmYTRmNjdmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IZHCncC2oSyO19h9mG-3FGw2Gp9lsOG3_syGvPUOuzM";
+        const apiUrl =
+          "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
+        const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+        const backdropBaseUrl = "https://image.tmdb.org/t/p/original";
+
+        // Fetch movies from API
+        fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const movies = data.results;
+
+            if (movies && movies.length > 0) {
+              // Set hero movie (first movie)
+              const heroMovie = movies[0];
+
+              document.getElementById("heroTitle").textContent =
+                heroMovie.title;
+              document.getElementById("heroYear").textContent =
+                heroMovie.release_date.split("-")[0];
+              document.getElementById("heroDuration").textContent =
+                "148 minutes"; // API doesn't provide duration
+              document.getElementById("heroRating").textContent =
+                heroMovie.vote_average.toFixed(1);
+              document.getElementById("heroDescription").textContent =
+                heroMovie.overview;
+
+              // Set hero background with original size for better fullscreen
+              const heroSection = document.getElementById("heroSection");
+              heroSection.style.backgroundImage = `url(${backdropBaseUrl}${heroMovie.backdrop_path})`;
+
+              // Find Spider-Man movie if exists
+              let spiderManIndex = movies.findIndex(
+                (movie) =>
+                  movie.title.toLowerCase().includes("spider") ||
+                  movie.title.toLowerCase().includes("spider-man")
+              );
+
+              // If no Spider-Man, use the third movie
+              if (spiderManIndex === -1) spiderManIndex = 2;
+
+              // Populate carousel
+              const carousel = document.getElementById("movieCarousel");
+              carousel.innerHTML = ""; // Clear existing content
+
+              movies.forEach((movie, index) => {
+                const movieCard = document.createElement("div");
+                movieCard.className = "movie-card";
+
+                // Make the Spider-Man movie or selected index featured
+                if (index === spiderManIndex) {
+                  movieCard.classList.add("featured-movie");
+
+                  // Also update hero with this movie if it's Spider-Man
+                  document.getElementById("heroTitle").textContent =
+                    movie.title;
+                  document.getElementById("heroYear").textContent =
+                    movie.release_date.split("-")[0];
+                  document.getElementById("heroRating").textContent =
+                    movie.vote_average.toFixed(1);
+                  document.getElementById("heroDescription").textContent =
+                    movie.overview;
+                  heroSection.style.backgroundImage = `url(${backdropBaseUrl}${movie.backdrop_path})`;
+                }
+
+                movieCard.innerHTML = `
+                            <img src="${imageBaseUrl}${movie.poster_path}" alt="${movie.title}">
+                        `;
+
+                movieCard.addEventListener("click", () => {
+                  // Update hero section with this movie
+                  document.getElementById("heroTitle").textContent =
+                    movie.title;
+                  document.getElementById("heroYear").textContent =
+                    movie.release_date.split("-")[0];
+                  document.getElementById("heroRating").textContent =
+                    movie.vote_average.toFixed(1);
+                  document.getElementById("heroDescription").textContent =
+                    movie.overview;
+                  heroSection.style.backgroundImage = `url(${backdropBaseUrl}${movie.backdrop_path})`;
+
+                  // Update featured movie
+                  document
+                    .querySelectorAll(".featured-movie")
+                    .forEach((el) => el.classList.remove("featured-movie"));
+                  movieCard.classList.add("featured-movie");
+                });
+
+                carousel.appendChild(movieCard);
+              });
+
+              // Carousel navigation
+              const prevBtn = document.querySelector(".carousel-control.prev");
+              const nextBtn = document.querySelector(".carousel-control.next");
+
+              prevBtn.addEventListener("click", () => {
+                carousel.scrollBy({ left: -600, behavior: "smooth" });
+              });
+
+              nextBtn.addEventListener("click", () => {
+                carousel.scrollBy({ left: 600, behavior: "smooth" });
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
